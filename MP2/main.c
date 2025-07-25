@@ -42,8 +42,8 @@ int main(){
 	double cpu_time_used;
 
 	start = clock();
-    imgCvtGrayIntToFloat(&imgPixels[0][0], &floatPixels[0][0], height, width);
-    end = clock();
+        imgCvtGrayIntToFloat(&imgPixels[0][0], &floatPixels[0][0], height, width);
+        end = clock();
 
 	printf("\nPrinting the Converted Image:\n");
 	printArr(&floatPixels[0][0], height, width);
