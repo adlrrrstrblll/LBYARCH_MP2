@@ -6,54 +6,109 @@
 #define ITERATIONS 30
 #define EPSILON 1e-6
 
-extern void imgCvtGrayIntToFloat(int *intPixels, float *floatPixels, int height, int width);
+extern void imgCvtGrayInttoFloat(int *intPixels, float *floatPixels, int height, int width);
 
-void printArr(float *img, int height, int width){
-	int i, j;
-
-	for (i = 0; i < height; i++){
-		for (j = 0; j < width; j++){
-			printf("%.2f ", img[i * width + j]); 
-		}
-		printf("\n"); 
-	}
+// Reference C version 
+void imgCvtGrayInttoFloat_C(int *intPixels, float *floatPixels, int height, int width) {
+    int total = height * width;
+	int i;
+    for (i = 0; i < total; i++) {
+        floatPixels[i] = (float)intPixels[i] / 255.0f;
+    }
 }
 
-void printIntImage(int *img, int height, int width) {
+void printFloatImage(float *img, int height, int width) {
 	int i, j;
-
     for (i = 0; i < height; i++) {
         for (j = 0; j < width; j++) {
-            printf("%d ", *(img + i * width + j));
+            printf("%.2f ", img[i * width + j]);
         }
         printf("\n");
     }
 }
 
-int main(){
-	int height = 3;
-	int width = 4;
-	int imgPixels[3][4] = {
-		{64,89,114,84},
-		{140,166,191,84},
-		{216,242,38,84}
-	};
-	float floatPixels[3][4] = {0}; 
+void printIntImage(int *img, int height, int width) {
+    int i, j;
+	for (i = 0; i < height; i++) {
+        for (j = 0; j < width; j++) {
+            printf("%d ", img[i * width + j]);
+        }
+        printf("\n");
+    }
+}
 
-	printf("Original Input Image:\n");
-	printIntImage(&imgPixels[0][0], height, width);
+int main() {
+	int i, j;
+    int height = 3;
+    int width = 4;
+    int intPixels[3][4] = {
+        {64, 89, 114, 84},
+        {140, 166, 191, 84},
+        {216, 242, 38, 84}
+    };
 
-	clock_t start, end;
-	double cpu_time_used;
+    float floatPixelsASM[3][4] = {0};
+    float floatPixelsC[3][4] = {0};
 
-	start = clock();
-        imgCvtGrayIntToFloat(&imgPixels[0][0], &floatPixels[0][0], height, width);
+    printf("Original Input Image:\n");
+    printIntImage(&intPixels[0][0], height, width);
+
+    // Run C version
+    imgCvtGrayInttoFloat_C(&intPixels[0][0], &floatPixelsC[0][0], height, width);
+
+    // Run ASM version
+    imgCvtGrayInttoFloat(&intPixels[0][0], &floatPixelsASM[0][0], height, width);
+
+    printf("\nConverted Image (ASM Version):\n");
+    printFloatImage(&floatPixelsASM[0][0], height, width);
+
+    int correct = 1;
+    for (i = 0; i < height * width; i++) {
+        if (fabs(floatPixelsASM[0][i] - floatPixelsC[0][i]) > EPSILON) {
+            correct = 0;
+            break;
+        }
+    }
+
+    printf("\nERROR CHECKING:\n");
+    if (correct) {
+        printf("  Result: All outputs match across all iterations.");
+    } else {
+        printf("  Result: ERROR - Outputs do not match!\n");
+    }
+
+    // Performance Test Loop
+    double time_c = 0.0, time_asm = 0.0;
+    clock_t start, end;
+
+    for (i = 0; i < ITERATIONS; i++) {
+        // C version
+        start = clock();
+        imgCvtGrayInttoFloat_C(&intPixels[0][0], &floatPixelsC[0][0], height, width);
         end = clock();
+        time_c += (double)(end - start) / CLOCKS_PER_SEC;
 
-	printf("\nPrinting the Converted Image:\n");
-	printArr(&floatPixels[0][0], height, width);
+        // ASM version
+        start = clock();
+        imgCvtGrayInttoFloat(&intPixels[0][0], &floatPixelsASM[0][0], height, width);
+        end = clock();
+        time_asm += (double)(end - start) / CLOCKS_PER_SEC;
+    }
 
-	printf("\nExecution time: %f seconds\n", cpu_time_used);
+    time_c /= ITERATIONS;
+    time_asm /= ITERATIONS;
+    double speedup = time_c / time_asm;
 
-	return 0;
+    // Report Summary
+    printf("\nAVERAGE EXECUTION TIMES (over %d iterations):\n", ITERATIONS);
+    printf("  C Version     : %.8f seconds\n", time_c);
+    printf("  Assembly      : %.8f seconds\n", time_asm);
+        if (time_asm > 0.0) {
+        double speedup = time_c / time_asm;
+        printf("  Speedup (C/ASM): %.2fx faster\n", speedup);
+    } else {
+        printf("  Speedup (C/ASM): N/A (assembly time too fast to measure accurately)\n");
+    }
+
+    return 0;
 }

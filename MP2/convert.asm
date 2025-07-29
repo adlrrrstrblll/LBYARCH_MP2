@@ -1,7 +1,7 @@
 section .text
-global imgCvtGrayIntToFloat
+global imgCvtGrayInttoFloat
 
-imgCvtGrayIntToFloat:
+imgCvtGrayInttoFloat:
     MOV RSI, RCX ; intPixels
     MOV RDI, RDX ; floatPixels
     
