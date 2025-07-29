@@ -1,29 +1,31 @@
 section .text
-global imgCvtGrayInttoFloat
+global _imgCvtGrayInttoFloat    
 
-imgCvtGrayInttoFloat:
-    MOV RSI, RCX ; intPixels
-    MOV RDI, RDX ; floatPixels
-    
-    MOV EAX, R8d ; height
-    IMUL EAX, R9d ; height * width
-    MOV ECX, 0 ; index = 0
-    
-loop_convert:
-    CMP ECX, EAX     
-    JGE end
-    
-    MOV EBX, [RSI + RCX * 4]   
-    CVTSI2SS XMM0, EBX      
-    MOVSS XMM1, [floatVal]     
-    DIVSS XMM0, XMM1             ; xmm0 = pixel / 255.0
-    MOVSS [RDI + RCX * 4], XMM0
+_imgCvtGrayInttoFloat:         
+    ; rdi = input (int*)
+    ; rsi = output (float*)
+    ; rdx = height
+    ; rcx = width
 
-    INC ECX
-    JMP loop_convert
+    mov eax, edx        ; height
+    imul eax, ecx       ; eax = eax * edx
+    xor ecx, ecx        ; ecx = 0 (loop counter)
 
-end:
-    RET
-    
-section .data 
+.loop_convert:
+    cmp ecx, eax
+    jge .end
+
+    mov ebx, dword [rdi + rcx * 4]  
+    cvtsi2ss xmm0, ebx             
+    movss xmm1, dword [rel floatVal]   
+    divss xmm0, xmm1                   
+    movss [rsi + rcx * 4], xmm0      
+
+    inc ecx
+    jmp .loop_convert
+
+.end:
+    ret
+
+section .data
     floatVal dd 255.0
