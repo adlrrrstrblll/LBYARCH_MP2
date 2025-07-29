@@ -15,28 +15,26 @@ compile.bat
 ---
 # 📊 Performance Comparison: C vs Assembly
 
-By contrasting a C implementation with our x86-64 Assembly counterpart, the performance of grayscale conversion is assessed. Utilizing the clock() function, the main metric is the average execution time over a number of iterations.
+By contrasting a C implementation with x86-64 Assembly, the performance of grayscale conversion is assessed. Utilizing the clock() function, the main metric is the average execution time over a number of iterations (eg. 30).
 
-🔁 Benchmark Setup
-- Input: A 3×4 matrix of int pixel values (0–255)
-- Output: A 3×4 matrix of float pixel values (0.0–1.0)
+🔁 Setup
+- Input: A m×n matrix of int pixel values (0–255)
+- Output: A m×n matrix of float pixel values (0.0–1.0)
 - Iterations: Each stage is executed 30 times to reduce runtime noise.
 - Platform: Measured by using <time.h> to measure the CPU's wall-clock time.
 
-
 🧪 Measured Functions
 
-imgCvtGrayIntToFloat_C(): A C function that uses a loop to convert data to grayscale:
+imgCvtGrayInttoFloat(): A C function that uses a loop to convert data to grayscale:
 ```bash
 floatPixels[i] = (float)intPixels[i] / 255.0f
 ```
-imgCvtGrayIntToFloat():
+imgCvtGrayInttoFloat():
 The x86-64 Assembly implementation uses scalar SIMD instructions:
   - CVTSI2SS: Converts a 32-bit integer to a scalar single-precision float
   - DIVSS: Performs scalar float division (by 255.0f)
-  - Registers like xmm0–xmm1 are used to parallelize and reduce memory access
+  - Registers like xmm0–xmm1 are used
 
- 
 ⚠️ Can Both Execution Times Sometimes Be Zero?
 
 In our performance test runs, both the C and Assembly versions often report average execution times of:
