@@ -43,13 +43,13 @@ In our performance test runs, both the C and Assembly versions often report aver
   Assembly      : 0.00000000 seconds
 ```
 The results do not suggest that the speeds of the two implementations are the same. Rather, this finding underscores the limitations of our benchmarking setup and is expected due to the following factors:
-1. 🧮 Very Small Input Size - The test image consists of only 12 pixels, arranged in a 3x4 matrix format. Given that the resolution of the clock() function typically operates in milliseconds, the completion time for each function is often too brief to be accurately measured in nanoseconds.
+1. 🧮 Very Small Input Size - There are just 12 pixels in the test image, and they are grouped in a 3x4 matrix. Each function's completion time is frequently too short to be precisely assessed in nanoseconds because the clock() function's resolution normally runs in milliseconds.
 
-2. 🛠️ Modern Compiler Optimizations - The performance of hand-written Assembly for this fundamental task is nearly comparable to that of the C compiler, particularly when optimization flags are employed. This is attributable to its ability to inline the grayscale loop, minimize arithmetic overhead, and generate efficient machine instructions.
+2. 🛠️ Modern Compiler Optimizations - When flags are used, the performance of handwritten Assembly for this basic task is almost equal to that of the C compiler. This is due to its capacity to produce effective machine instructions, reduce arithmetic overhead, and inline the grayscale loop.
 
-3. ⚡ CPU Caching and Pipelining - The entirety of the input and output is accommodated within the L1 cache, given the diminutive size of the dataset. Additionally, the absence of cache misses, along with the benefits of branch prediction and instruction pipelining, proves advantageous for both implementations. Consequently, execution times are significantly reduced, rendering them virtually instantaneous.
+3. ⚡ CPU Caching and Pipelining - Considering how small the dataset is, the complete input and output can fit in the L1 cache. Furthermore, the advantages of branch prediction, instruction pipelining, and the lack of cache misses work well for both systems. As a result, execution times are drastically shortened and are almost immediate.
 
-4. ⏱️ Wall-Clock Granularity Limits - The function Clock() from the <time.h> library, which tracks CPU time with limited resolution, is employed in our timing methodology. This clock's granularity is inadequate for rapid operations, which accounts for the observed zero values.
+4. ⏱️ Wall-Clock Granularity Limits - The <time.h> library's clock() function, which measures CPU time with a low level of detail, is used in our timing strategy. The reported zero values are explained by the clock's insufficient granularity for fast operations.
 
 ---
 
