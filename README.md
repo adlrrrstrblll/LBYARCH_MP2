@@ -43,12 +43,11 @@ In our performance test runs, both the C and Assembly versions often report aver
   Assembly      : 0.00000000 seconds
 ```
 The results do not suggest that the speeds of the two implementations are the same. Rather, this finding underscores the limitations of our benchmarking setup and is expected due to the following factors:
-1. 🧮 Very Small Input Size - There are just 12 pixels in the test image, and they are grouped in a 3x4 matrix. Each function's completion time is frequently too short to be precisely assessed in nanoseconds because the clock() function's resolution normally runs in milliseconds.
+1. Very Small Input Size - There are just 12 pixels in the test image (default input), and they are grouped in a 3x4 matrix. Each function's completion time is too short to be precisely assessed in nanoseconds because the clock() function's resolution normally runs in milliseconds.
 
-2. 🛠️ Modern Compiler Optimizations - When flags are used, the performance of handwritten Assembly for this basic task is almost equal to that of the C compiler. This is due to its capacity to produce effective machine instructions, reduce arithmetic overhead, and inline the grayscale loop.
+2. Modern Compiler Optimizations - When flags are used, the performance of Assembly for this task is almost equal to that of the C compiler. This is due to its capacity to produce effective machine instructions, reduce arithmetic overhead, and inline the grayscale loop.
 
-3. ⏱️ Wall-Clock Granularity Limits - The <time.h> library's clock() function, which measures CPU time with a low level of detail, is used in our timing strategy. The reported zero values are explained by the clock's insufficient granularity for fast operations.
-
+3. Wall-Clock Granularity Limits - The <time.h> library's clock() function, which measures CPU time with a low level of detail, is used in our program. The zero values are explained by the clock's insufficient granularity for fast operations.
 ---
 
 # 💭 Bonus Feature (Compatible in MacOS)
