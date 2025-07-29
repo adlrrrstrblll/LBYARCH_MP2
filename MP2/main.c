@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include <time.h>
-<<<<<<< Updated upstream
-=======
 #include <string.h>
 #include <math.h>
 
 #define ITERATIONS 30
 #define EPSILON 1e-6
->>>>>>> Stashed changes
 
 extern void imgCvtGrayIntToFloat(int *intPixels, float *floatPixels, int height, int width);
 
