@@ -55,6 +55,80 @@ The results do not suggest that the speeds of the two implementations are the sa
 
 ---
 
+# 💭 Bonus Feature (Compatible in MacOS)
+
+### Step 1: Install Dependencies
+
+Install the required tools using Homebrew:
+
+```bash
+brew install nasm
+brew install gcc
+```
+
+### Step 2: Check Terminal Architecture
+
+Ensure your terminal is running under x86_64 architecture:
+
+```bash
+arch -x86_64 /System/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+uname -m  # Should output: x86_64
+```
+
+### Step 3: Create and Run the Compilation Script
+#### 3.1) Create the shell script:
+
+```bash
+nano compile.sh
+```
+
+#### 3.2) Copy the following script content:
+
+```bash
+#!/bin/bash
+nasm -f macho64 convert.asm -o convert.o
+clang -target x86_64-apple-macos11 -c main.c -o main.o -std=c99
+clang -target x86_64-apple-macos11 main.o convert.o -o grayscale
+./grayscale
+```
+
+Save and exit 
+
+#### 3.3) Make the script executable:
+
+```bash
+chmod +x compile.sh
+```
+
+#### 3.4) Run the script:
+
+```bash
+./compile.sh
+```
+
+---
+
+## ⚙️ Platform-Specific Assembly Considerations
+
+### Register Usage Differences
+
+Both macOS and Windows can run on x86-64 CPUs, but they differ in the organization of registers for function calls:
+
+| Argument # | macOS/Linux | Windows |
+|------------|-------------|---------|
+| 1          | RDI         | RCX     |
+| 2          | RSI         | RDX     |
+| 3          | RDX         | R8      |
+| 4          | RCX         | R9      |
+| 5+         | Stack       | Stack   |
+| Return     | RAX         | RAX     |
+
+### Function Naming Conventions
+
+**macOS:** Function names in assembly require a leading underscore (e.g., `_imgCvtGrayInttoFloat`) due to conventions from older linkers like Mach-O. This is different from Windows and Linux, where function names are typically not prefixed. The underscore helps the macOS linker find the correct function during the linking phase.
+
+**Windows:** Function names do not require a leading underscore in the assembly code.
+
 # 👥 Authors
 
 - **Evan Andrew J. Pinca**  
