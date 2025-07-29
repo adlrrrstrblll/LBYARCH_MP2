@@ -47,9 +47,7 @@ The results do not suggest that the speeds of the two implementations are the sa
 
 2. 🛠️ Modern Compiler Optimizations - When flags are used, the performance of handwritten Assembly for this basic task is almost equal to that of the C compiler. This is due to its capacity to produce effective machine instructions, reduce arithmetic overhead, and inline the grayscale loop.
 
-3. ⚡ CPU Caching and Pipelining - Considering how small the dataset is, the complete input and output can fit in the L1 cache. Furthermore, the advantages of branch prediction, instruction pipelining, and the lack of cache misses work well for both systems. As a result, execution times are drastically shortened and are almost immediate.
-
-4. ⏱️ Wall-Clock Granularity Limits - The <time.h> library's clock() function, which measures CPU time with a low level of detail, is used in our timing strategy. The reported zero values are explained by the clock's insufficient granularity for fast operations.
+3. ⏱️ Wall-Clock Granularity Limits - The <time.h> library's clock() function, which measures CPU time with a low level of detail, is used in our timing strategy. The reported zero values are explained by the clock's insufficient granularity for fast operations.
 
 ---
 
