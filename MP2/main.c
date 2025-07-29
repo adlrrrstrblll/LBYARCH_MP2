@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 
+
 #define ITERATIONS 30
 #define EPSILON 1e-6
 
