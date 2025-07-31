@@ -1,0 +1,159 @@
+First Test
+=================================
+Sample of Input Image (intPixels):
+242 107 101 245 189
+236  79 135 103  27
+107 175  12  39  47
+195  35 128 160 137
+191 213 177 116  21
+
+C Version Output (floatPixelsC):
+0.949 0.420 0.396 0.961 0.741
+0.925 0.310 0.529 0.404 0.106
+0.420 0.686 0.047 0.153 0.184
+0.765 0.137 0.502 0.627 0.537
+0.749 0.835 0.694 0.455 0.082
+
+ASM Version Output (floatPixelsASM):
+0.949 0.420 0.396 0.961 0.741
+0.925 0.310 0.529 0.404 0.106
+0.420 0.686 0.047 0.153 0.184
+0.765 0.137 0.502 0.627 0.537
+0.749 0.835 0.694 0.455 0.082
+
+ERROR CHECKING:
+  Result: All outputs match.
+
+AVERAGE EXECUTION TIMES (over 30 iterations):
+  C Version     : 0.00006667 seconds
+  Assembly      : 0.00003333 seconds
+  Speedup (C/ASM): 2.00x faster
+=================================
+
+Second Test
+=================================
+Sample of Input Image (intPixels):
+249  48 184 136  15
+153 226  40 224  75
+137  93  20  72 212
+166  93  87 250 139
+ 87 248 188 102 180
+
+C Version Output (floatPixelsC):
+0.976 0.188 0.722 0.533 0.059
+0.600 0.886 0.157 0.878 0.294
+0.537 0.365 0.078 0.282 0.831
+0.651 0.365 0.341 0.980 0.545
+0.341 0.973 0.737 0.400 0.706
+
+ASM Version Output (floatPixelsASM):
+0.976 0.188 0.722 0.533 0.059
+0.600 0.886 0.157 0.878 0.294
+0.537 0.365 0.078 0.282 0.831
+0.651 0.365 0.341 0.980 0.545
+0.341 0.973 0.737 0.400 0.706
+
+ERROR CHECKING:
+  Result: All outputs match.
+
+AVERAGE EXECUTION TIMES (over 30 iterations):
+  C Version     : 0.00006667 seconds
+  Assembly      : 0.00006667 seconds
+  Speedup (C/ASM): 1.00x faster
+=================================
+
+Third Test
+=================================
+Sample of Input Image (intPixels):
+ 22  16 193 130 174
+226 153 165 154  92
+149 152 160   2  91
+ 53 140 133  82 178
+201 240  49   0 208
+
+C Version Output (floatPixelsC):
+0.086 0.063 0.757 0.510 0.682
+0.886 0.600 0.647 0.604 0.361
+0.584 0.596 0.627 0.008 0.357
+0.208 0.549 0.522 0.322 0.698
+0.788 0.941 0.192 0.000 0.816
+
+ASM Version Output (floatPixelsASM):
+0.086 0.063 0.757 0.510 0.682
+0.886 0.600 0.647 0.604 0.361
+0.584 0.596 0.627 0.008 0.357
+0.208 0.549 0.522 0.322 0.698
+0.788 0.941 0.192 0.000 0.816
+
+ERROR CHECKING:
+  Result: All outputs match.
+
+AVERAGE EXECUTION TIMES (over 30 iterations):
+  C Version     : 0.00003333 seconds
+  Assembly      : 0.00010000 seconds
+  Speedup (C/ASM): 0.33x faster
+=================================
+
+Fourth Test
+=================================
+Sample of Input Image (intPixels):
+ 58 232  91 122 226
+ 30 205  62  96 199
+106 194  19   1 199
+143 197 246 217 254
+143  32  21  45  43
+
+C Version Output (floatPixelsC):
+0.227 0.910 0.357 0.478 0.886
+0.118 0.804 0.243 0.376 0.780
+0.416 0.761 0.075 0.004 0.780
+0.561 0.773 0.965 0.851 0.996
+0.561 0.125 0.082 0.176 0.169
+
+ASM Version Output (floatPixelsASM):
+0.227 0.910 0.357 0.478 0.886
+0.118 0.804 0.243 0.376 0.780
+0.416 0.761 0.075 0.004 0.780
+0.561 0.773 0.965 0.851 0.996
+0.561 0.125 0.082 0.176 0.169
+
+ERROR CHECKING:
+  Result: All outputs match.
+
+AVERAGE EXECUTION TIMES (over 30 iterations):
+  C Version     : 0.00006667 seconds
+  Assembly      : 0.00006667 seconds
+  Speedup (C/ASM): 1.00x faster
+=================================
+
+Fifth Test
+=================================
+Sample of Input Image (intPixels):
+ 81 207 213 118 236
+115   5 160  13 127
+171  12 185 116 104
+ 84 233 225   0 255
+175 225  26  51   9
+
+C Version Output (floatPixelsC):
+0.318 0.812 0.835 0.463 0.925
+0.451 0.020 0.627 0.051 0.498
+0.671 0.047 0.725 0.455 0.408
+0.329 0.914 0.882 0.000 1.000
+0.686 0.882 0.102 0.200 0.035
+
+ASM Version Output (floatPixelsASM):
+0.318 0.812 0.835 0.463 0.925
+0.451 0.020 0.627 0.051 0.498
+0.671 0.047 0.725 0.455 0.408
+0.329 0.914 0.882 0.000 1.000
+0.686 0.882 0.102 0.200 0.035
+
+ERROR CHECKING:
+  Result: All outputs match.
+
+AVERAGE EXECUTION TIMES (over 30 iterations):
+  C Version     : 0.00003333 seconds
+  Assembly      : 0.00006667 seconds
+  Speedup (C/ASM): 0.50x faster
+=================================
