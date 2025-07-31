@@ -107,16 +107,7 @@ chmod +x compile.sh
 
 ### Register Usage Differences
 
-Both macOS and Windows can run on x86-64 CPUs, but they differ in the organization of registers for function calls:
-
-| Argument # | macOS/Linux | Windows |
-|------------|-------------|---------|
-| 1          | RDI         | RCX     |
-| 2          | RSI         | RDX     |
-| 3          | RDX         | R8      |
-| 4          | RCX         | R9      |
-| 5+         | Stack       | Stack   |
-| Return     | RAX         | RAX     |
+Both macOS and Windows can run on x86-64 CPUs, but they differ in the organization of registers for function calls
 
 ### Function Naming Conventions
 
