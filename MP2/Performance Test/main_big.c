@@ -34,7 +34,7 @@ int main() {
     imgCvtGrayInttoFloat_C(intPixels, floatPixelsC, HEIGHT, WIDTH);
     imgCvtGrayInttoFloat(intPixels, floatPixelsASM, HEIGHT, WIDTH);
 
-    int sampleH = 5, sampleW = 5;
+    int sampleH = 100, sampleW = 100;
     printf("Sample of Input Image (intPixels):\n");
     for (i = 0; i < sampleH; i++) {
         for (j = 0; j < sampleW; j++) {
